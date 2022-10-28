@@ -2,18 +2,19 @@
 //recuperation des elemnt dans le localStorage
 let productLocalStorage = JSON.parse(localStorage.getItem("product"))
 
-/* for(i = 0; i< productLocalStorage.length; i++) 
-  {
-    getDataItem(productLocalStorage[i].idProduct, productLocalStorage[i].colorProduct, productLocalStorage[i].quantity)   
-  }*/
-
-
-
 try {
   for (let element of productLocalStorage) 
   {
-    console.log(element);
-    getDataItem(productLocalStorage.idProduct, productLocalStorage.colorProduct, productLocalStorage.quantity)
+    getDataItem(element.idProduct, element.colorProduct, element.quantity)
+    function getPrice(quantity, price) {
+
+      let sum = 0;
+      const totalProductPrice = [price * quantity];
+    
+        sum += totalProductPrice;
+        console.log(sum);
+      
+    }
   }
 }
 catch(err) {
@@ -101,13 +102,13 @@ function optionUser(idProduct, colorProduct, quantity, imageUrl, altTxt, name, p
       let idDelItem = productLocalStorage[j].idProduct;
       let colorDelItem = productLocalStorage[j].colorProduct;
 
-      productLocalStorage = productLocalStorage.filter(el => el.idProduct !== el.idDelItem && el.colorProduct !== colorDelItem);
+      productLocalStorage = productLocalStorage.filter(el => el.idProduct !== idDelItem && el.colorProduct !== colorDelItem);
       localStorage.setItem("product", JSON.stringify(productLocalStorage));
       window.location.reload()
     })
 
   }
-  
+
 }
 
 //total Quantity
@@ -140,21 +141,6 @@ const totalPrice = priceQuantity.reduce(calcul,0);
 console.log('totalPrice',totalPrice);*/
 
 
-function getPrice(quantity, price) {
-
-  const productPrice = `${price}`;
-  const productQuantity = `${quantity}`
-
-  let sum = 0;
-
-  const totalProductPrice = [productPrice * productQuantity];
-
-  for (let h = 0; h < totalProductPrice.length; h++) 
-  {
-    sum += totalProductPrice[h];
-    console.log(sum);
-  }
-}
 
   /*const priceResult = document.querySelector("#totalPrice");
   priceResult.innerHTML = totalProductPrice;*/
