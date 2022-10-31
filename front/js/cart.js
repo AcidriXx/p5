@@ -1,6 +1,7 @@
 
 //recuperation des elemnt dans le localStorage
 let productLocalStorage = JSON.parse(localStorage.getItem("product"))
+let sum = 0;
 
 try {
   for (let element of productLocalStorage) 
@@ -8,11 +9,12 @@ try {
     getDataItem(element.idProduct, element.colorProduct, element.quantity)
     function getPrice(quantity, price) {
 
-      let sum = 0;
-      const totalProductPrice = [price * quantity];
+      const totalProductPrice = price * quantity;
     
         sum += totalProductPrice;
-        console.log(sum);
+
+        const priceResult = document.querySelector("#totalPrice");
+        priceResult.innerHTML = sum;
       
     }
   }
@@ -98,11 +100,14 @@ function optionUser(idProduct, colorProduct, quantity, imageUrl, altTxt, name, p
 
   for (let j = 0; j < delItem.length; j++) {
     delItem[j].addEventListener("click",(e) => {
-    
+      event.preventDefault();
+      
       let idDelItem = productLocalStorage[j].idProduct;
+      console.log(productLocalStorage[j].idProduct);
       let colorDelItem = productLocalStorage[j].colorProduct;
-
-      productLocalStorage = productLocalStorage.filter(el => el.idProduct !== idDelItem && el.colorProduct !== colorDelItem);
+      
+      productLocalStorage = productLocalStorage.filter(el => el.colorProduct !== colorDelItem && el.idProduct !== idDelItem );
+      console.log(productLocalStorage);
       localStorage.setItem("product", JSON.stringify(productLocalStorage));
       window.location.reload()
     })
@@ -132,18 +137,6 @@ const totalQuantityProduct = totalQuantityCalcul.reduce(reducer,0);
 const quantityResult = document.querySelector("#totalQuantity");
 quantityResult.innerHTML = totalQuantityProduct;
 
-
-//total Price
-
-
-/*const calcul = (accumulator, currentValue) => accumulator + currentValue;
-const totalPrice = priceQuantity.reduce(calcul,0);
-console.log('totalPrice',totalPrice);*/
-
-
-
-  /*const priceResult = document.querySelector("#totalPrice");
-  priceResult.innerHTML = totalProductPrice;*/
 
 
 //recuperation formulaire 
