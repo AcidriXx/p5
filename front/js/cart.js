@@ -99,21 +99,21 @@ function optionUser(idProduct, colorProduct, quantity, imageUrl, altTxt, name, p
   const delItem = document.querySelectorAll('.deleteItem');
 
   for (let j = 0; j < delItem.length; j++) {
+
     delItem[j].addEventListener("click",(e) => {
-      event.preventDefault();
       
       let idDelItem = productLocalStorage[j].idProduct;
       console.log(productLocalStorage[j].idProduct);
       let colorDelItem = productLocalStorage[j].colorProduct;
       
-      productLocalStorage = productLocalStorage.filter(el => el.colorProduct !== colorDelItem && el.idProduct !== idDelItem );
+      productLocalStorage = productLocalStorage.filter(el => el.colorProduct !== colorDelItem || el.idProduct !== idDelItem );
       console.log(productLocalStorage);
       localStorage.setItem("product", JSON.stringify(productLocalStorage));
       window.location.reload()
     })
 
   }
-
+ 
 }
 
 //total Quantity
