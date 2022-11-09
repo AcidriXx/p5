@@ -39,7 +39,7 @@ async function getDataItem(idProduct, colorProduct, quantity) {
       }; 
     }
   }
-
+getDataItem();
 
 //function pour ecrire l'html 
 function optionUser(idProduct, colorProduct, quantity, imageUrl, altTxt, name, price) {
@@ -97,13 +97,27 @@ function optionUser(idProduct, colorProduct, quantity, imageUrl, altTxt, name, p
 //suppression de l'objet
 
   const delItem = document.querySelectorAll('.deleteItem');
+  delItem.forEach((element) => {
 
-  for (let j = 0; j < delItem.length; j++) {
+    element.addEventListener('click',(Event) => {
+      console.log(delItem);
+      
+      for (const property in Event) {
+        console.log(property);
+
+      }
+      
+    });
+
+  });
+
+
+  /*for (let j = 0; j < delItem.length; j++) {
 
     delItem[j].addEventListener("click",(e) => {
       
       let idDelItem = productLocalStorage[j].idProduct;
-      console.log(productLocalStorage[j].idProduct);
+      
       let colorDelItem = productLocalStorage[j].colorProduct;
       
       productLocalStorage = productLocalStorage.filter(el => el.colorProduct !== colorDelItem || el.idProduct !== idDelItem );
@@ -111,8 +125,7 @@ function optionUser(idProduct, colorProduct, quantity, imageUrl, altTxt, name, p
       localStorage.setItem("product", JSON.stringify(productLocalStorage));
       window.location.reload()
     })
-
-  }
+  }*/
  
 }
 
