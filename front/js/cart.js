@@ -42,7 +42,7 @@ async function getDataItem(idProduct, colorProduct, quantity) {
 getDataItem();
 
 //function pour ecrire l'html 
-function optionUser(idProduct, colorProduct, quantity, imageUrl, altTxt, name, price) {
+function  optionUser(idProduct, colorProduct, quantity, imageUrl, altTxt, name, price) {
     
    const cartItem = document.createElement('section');
    cartItem.setAttribute("class", "cart__item");
@@ -100,27 +100,28 @@ function optionUser(idProduct, colorProduct, quantity, imageUrl, altTxt, name, p
   delItem.forEach((element) => {
 
     element.addEventListener('click',(Event) => {
-      console.log(delItem);
       
-      for (const property in Event) {
-        console.log(property);
-
+      const objetPanier = JSON.parse(localStorage.getItem("product"))
+      
+      for(let u = 0; u < objetPanier.length; u++) {
+        
+        if (Event.path[4].dataset.id == objetPanier[u].idProduct && Event.path[4].dataset.color == objetPanier[u].colorProduct ) {
+          delete objetPanier[u];
+          
+        } 
+        console.log(objetPanier[u]);
       }
-      
+
     });
 
   });
 
 
-  /*for (let j = 0; j < delItem.length; j++) {
+   /* for (let j = 0; j < delItem.length; j++) {
 
     delItem[j].addEventListener("click",(e) => {
       
-      let idDelItem = productLocalStorage[j].idProduct;
-      
-      let colorDelItem = productLocalStorage[j].colorProduct;
-      
-      productLocalStorage = productLocalStorage.filter(el => el.colorProduct !== colorDelItem || el.idProduct !== idDelItem );
+      productLocalStorage = productLocalStorage.filter(el => el.colorProduct !== productLocalStorage[j].colorProduct || el.idProduct !== productLocalStorage[j].idProduct );
       console.log(productLocalStorage);
       localStorage.setItem("product", JSON.stringify(productLocalStorage));
       window.location.reload()
@@ -128,6 +129,7 @@ function optionUser(idProduct, colorProduct, quantity, imageUrl, altTxt, name, p
   }*/
  
 }
+
 
 //total Quantity
 
