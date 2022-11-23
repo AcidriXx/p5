@@ -38,8 +38,8 @@ async function getDataItem(idProduct, colorProduct, quantity) {
           getPrice(quantity, data.price)       
       }; 
     }
-  }
-getDataItem();
+}
+
 
 //function pour ecrire l'html 
 function  optionUser(idProduct, colorProduct, quantity, imageUrl, altTxt, name, price) {
@@ -78,21 +78,19 @@ function  optionUser(idProduct, colorProduct, quantity, imageUrl, altTxt, name, 
 
       for(let x = 0; x < quantityInput.length; x++) {
         quantityInput[x].addEventListener("change", (e) => {
-
-          quantityInput.textContent = e.target.value
         
-          if(quantityInput.textContent == "" || quantityInput.textContent <= 0)
+          if(e.target.value == "" || e.target.value <= 0)
           {
             alert("Mettez un nombre valide.")
             return false;
+          } else {
+            productLocalStorage[x].quantity = e.target.value
           }
-
-        productLocalStorage[x].quantity = quantityInput.textContent
       
         localStorage.setItem("product", JSON.stringify(productLocalStorage))
         window.location.reload()
      });
-  };
+  }
 
 //suppression de l'objet
 
@@ -100,34 +98,20 @@ function  optionUser(idProduct, colorProduct, quantity, imageUrl, altTxt, name, 
   delItem.forEach((element) => {
 
     element.addEventListener('click',(Event) => {
-      
       const objetPanier = JSON.parse(localStorage.getItem("product"))
       
       for(let u = 0; u < objetPanier.length; u++) {
         
         if (Event.path[4].dataset.id == objetPanier[u].idProduct && Event.path[4].dataset.color == objetPanier[u].colorProduct ) {
-          delete objetPanier[u];
+          objetPanier.indexOf(objetPanier[u]);
           
+          objetPanier.splice(objetPanier.indexOf(objetPanier[u]), 1);
         } 
-        console.log(objetPanier[u]);
       }
-
+      localStorage.setItem("product", JSON.stringify(objetPanier));
+      window.location.reload() 
     });
-
-  });
-
-
-   /* for (let j = 0; j < delItem.length; j++) {
-
-    delItem[j].addEventListener("click",(e) => {
-      
-      productLocalStorage = productLocalStorage.filter(el => el.colorProduct !== productLocalStorage[j].colorProduct || el.idProduct !== productLocalStorage[j].idProduct );
-      console.log(productLocalStorage);
-      localStorage.setItem("product", JSON.stringify(productLocalStorage));
-      window.location.reload()
-    })
-  }*/
- 
+  })
 }
 
 
@@ -199,7 +183,7 @@ btnFormulaire.addEventListener("click", (e)=>{
     if (/^[A-Za-z0-9\s]{5,50}$/.test(addressInput)) {
       return true;
     } else {
-      alert("Mettez un adresse valide.")
+      alert("Mettez une adresse valide.")
       return false;
       }
   };
